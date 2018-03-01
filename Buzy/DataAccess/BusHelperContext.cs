@@ -12,14 +12,22 @@ namespace Buzy.DataAccess
         public DbSet<Veiculo> veiculos { get; set; }
         public DbSet<Sensor> sensores { get; set; }
         public DbSet<HistoricoSensor> historicoSensores { get; set; }
+        public DbSet<Feedback> feedbacks { get; set; }
+        public DbSet<Usuario> usuarios { get; set; }
+        public DbSet<PontoDeOnibus> pontosDeOnibus { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Veiculo>().ToTable("veiculos");
             modelBuilder.Entity<Sensor>().ToTable("sensores");
             modelBuilder.Entity<HistoricoSensor>().ToTable("historicoSensores");
+            modelBuilder.Entity<Feedback>().ToTable("feedbacks");
+            modelBuilder.Entity<Usuario>().ToTable("usuarios");
+            modelBuilder.Entity<PontoDeOnibus>().ToTable("pontosDeOnibus");
 
-            base.OnModelCreating(modelBuilder);
+
         }
     }
 }
