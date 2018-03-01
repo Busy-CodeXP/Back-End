@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using buzy.DataAccess;
-using buzy.DataAccess.Model;
+using Buzy.DataAccess;
+using Buzy.DataAccess.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
