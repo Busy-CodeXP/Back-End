@@ -24,11 +24,11 @@ namespace Buzy.Controllers
         {
             var calcDistanciaPonto = new CalcDistanciaPontoViewModel();
 
-            var latVeiculo = this._db.sensores.Single(x => x.veiculo.Id == veiculoId).latitude;
-            var longVeiculo = this._db.sensores.Single(x => x.veiculo.Id == veiculoId).longitude;
+            var latVeiculo = this._db.Sensores.Single(x => x.veiculo.Id == veiculoId).latitude;
+            var longVeiculo = this._db.Sensores.Single(x => x.veiculo.Id == veiculoId).longitude;
 
-            var latPonto = this._db.pontosDeOnibus.Single(x => x.Id == pontoId).latitude;
-            var longPonto = this._db.pontosDeOnibus.Single(x => x.Id == pontoId).longitude;
+            var latPonto = this._db.PontosDeOnibus.Single(x => x.Id == pontoId).latitude;
+            var longPonto = this._db.PontosDeOnibus.Single(x => x.Id == pontoId).longitude;
 
 
             var z1 = (latVeiculo - longVeiculo);
@@ -41,7 +41,7 @@ namespace Buzy.Controllers
 
             calcDistanciaPonto.distancia = Math.Sqrt(soma);
 
-            calcDistanciaPonto.nome = this._db.pontosDeOnibus.Single(x => x.Id == pontoId).nome;
+            calcDistanciaPonto.nome = this._db.PontosDeOnibus.Single(x => x.Id == pontoId).nome;
 
             return Ok(calcDistanciaPonto);
 
