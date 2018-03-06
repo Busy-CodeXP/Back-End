@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using buzy.DataAccess;
-using buzy.DataAccess.Model;
+using Buzy.DataAccess;
+using Buzy.DataAccess.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,19 +22,19 @@ namespace Buzy.Controllers
         [HttpGet]
         public IEnumerable<Sensor> Get()
         {
-            return this._db.sensores.Include(s => s.veiculo).ToList();
+            return this._db.Sensores.Include(s => s.veiculo).ToList();
         }
 
         [HttpGet("{id}")]
         public Sensor Get(int id)
         {
-            return this._db.sensores.Include(s => s.veiculo).Single(v => v.Id == id);
+            return this._db.Sensores.Include(s => s.veiculo).Single(v => v.Id == id);
         }
 
         [HttpGet("{id}/historico")]
         public IEnumerable<HistoricoSensor> GetHistorico(int id)
         {
-            return this._db.historicoSensores.Include(h => h.sensor).Where(h => h.sensor.Id == id).ToList();
+            return this._db.HistoricoSensores.Include(h => h.sensor).Where(h => h.sensor.Id == id).ToList();
         }
 
         [HttpPost]
@@ -44,9 +44,9 @@ namespace Buzy.Controllers
             sensor.acao = model.acao;
             sensor.tipo = model.tipo;
             sensor.valor = model.valor;
-            sensor.veiculo = this._db.veiculos.Single(s => s.Id == model.veiculoId);
+            sensor.veiculo = this._db.Veiculo.Single(s => s.Id == model.veiculoId);
 
-            this._db.sensores.Add(sensor);
+            this._db.Sensores.Add(sensor);
             this._db.SaveChanges();
 
             return sensor;
@@ -55,12 +55,12 @@ namespace Buzy.Controllers
         [HttpPost("{id}/atualizar-posicao-e-valor")]
         public HistoricoSensor Post(int id, [FromBody] AtualizaSensorViewModel model)
         {
-            var sensor = this._db.sensores.Single(s => s.Id == id);
+            var sensor = this._db.Sensores.Single(s => s.Id == id);
             sensor.valor = model.valor;
             sensor.latitude = model.latitude;
             sensor.longitude = model.longitude;
 
-            this._db.sensores.Update(sensor);
+            this._db.Sensores.Update(sensor);
             this._db.SaveChanges();
 
             var historicoSensor = new HistoricoSensor();
@@ -70,7 +70,7 @@ namespace Buzy.Controllers
             historicoSensor.sensor = sensor;
             historicoSensor.valor = model.valor;
 
-            this._db.historicoSensores.Add(historicoSensor);
+            this._db.HistoricoSensores.Add(historicoSensor);
             this._db.SaveChanges();
 
             return historicoSensor;
@@ -79,21 +79,21 @@ namespace Buzy.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] SensorViewModel model)
         {
-            var sensor = this._db.sensores.Single(s => s.Id == id);
+            var sensor = this._db.Sensores.Single(s => s.Id == id);
             sensor.acao = model.acao;
             sensor.tipo = model.tipo;
             sensor.valor = model.valor;
 
-            this._db.sensores.Update(sensor);
+            this._db.Sensores.Update(sensor);
             this._db.SaveChanges();
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var sensor = this._db.sensores.Single(s => s.Id == id);
+            var sensor = this._db.Sensores.Single(s => s.Id == id);
 
-            this._db.sensores.Remove(sensor);
+            this._db.Sensores.Remove(sensor);
             this._db.SaveChanges();
         }
     }
