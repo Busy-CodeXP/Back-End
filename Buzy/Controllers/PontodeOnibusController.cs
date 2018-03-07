@@ -19,7 +19,7 @@ namespace Buzy.Controllers
             this._db = db;
         }
 
-        [HttpGet("distanciaOnibus/{veiculoId}/{pontoId}")]
+        [HttpGet("")]
         public IActionResult DistanciaPonto(int veiculoId, int pontoId)
         {
             var calcDistanciaPonto = new CalcDistanciaPontoViewModel();
