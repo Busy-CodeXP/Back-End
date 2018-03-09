@@ -25,14 +25,14 @@ namespace Buzy.Controllers
         [HttpGet]
         public IEnumerable<Veiculo> Get()
         {
-            return this._db.veiculos.ToList();
+            return this._db.Veiculo.ToList();
         }
 
         [HttpGet("{id}")]
         public ResumoVeiculoViewModel Get(int id)
         {
-            var veiculo = this._db.veiculos.Single(v => v.Id == id);
-            var historico = this._db.historicoSensores
+            var veiculo = this._db.Veiculo.Single(v => v.Id == id);
+            var historico = this._db.HistoricoSensores
                                 .Include(h => h.sensor)
                                 .ThenInclude(s => s.veiculo)
                                 .Where(h => h.sensor.veiculo.Id == id);
@@ -69,7 +69,7 @@ namespace Buzy.Controllers
             veiculo.capacidadeSentados = model.capacidadeSentados;
             veiculo.capacisadeEmPe = model.capacisadeEmPe;
 
-            this._db.veiculos.Add(veiculo);
+            this._db.Veiculo.Add(veiculo);
             this._db.SaveChanges();
         }
 
@@ -81,12 +81,12 @@ namespace Buzy.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]VeiculoViewModel model)
         {
-            var veiculo = this._db.veiculos.Single(v => v.Id == id);
+            var veiculo = this._db.Veiculo.Single(v => v.Id == id);
             veiculo.nome = model.nome;
             veiculo.capacidadeSentados = model.capacidadeSentados;
             veiculo.capacisadeEmPe = model.capacisadeEmPe;
 
-            this._db.veiculos.Update(veiculo);
+            this._db.Veiculo.Update(veiculo);
             this._db.SaveChanges();
         }
 
@@ -94,9 +94,9 @@ namespace Buzy.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var veiculo = this._db.veiculos.Single(v => v.Id == id);
+            var veiculo = this._db.Veiculo.Single(v => v.Id == id);
 
-            this._db.veiculos.Remove(veiculo);
+            this._db.Veiculo.Remove(veiculo);
             this._db.SaveChanges();
         }
     }
