@@ -32,7 +32,7 @@ namespace Buzy
 
         private static void RunSeed(IWebHost host)
         {
-            Console.WriteLine("Running seed...");
+            Console.WriteLine("Running seed");
 
             using (var scope = host.Services.CreateScope())
             {
