@@ -25,7 +25,7 @@ namespace Buzy.Controllers
         [HttpGet]
         public IEnumerable<Usuario> Getusuarios()
         {
-            return _context.usuarios;
+            return _context.Usuarios;
         }
 
         // GET: api/Usuarios/5
@@ -37,7 +37,7 @@ namespace Buzy.Controllers
                 return BadRequest(ModelState);
             }
 
-            var usuario = await _context.usuarios.SingleOrDefaultAsync(m => m.Id == id);
+            var usuario = await _context.Usuarios.SingleOrDefaultAsync(m => m.Id == id);
 
             if (usuario == null)
             {
@@ -91,7 +91,7 @@ namespace Buzy.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.usuarios.Add(usuario);
+            _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
@@ -106,13 +106,13 @@ namespace Buzy.Controllers
                 return BadRequest(ModelState);
             }
 
-            var usuario = await _context.usuarios.SingleOrDefaultAsync(m => m.Id == id);
+            var usuario = await _context.Usuarios.SingleOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
                 return NotFound();
             }
 
-            _context.usuarios.Remove(usuario);
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
 
             return Ok(usuario);
@@ -120,7 +120,7 @@ namespace Buzy.Controllers
 
         private bool UsuarioExists(int id)
         {
-            return _context.usuarios.Any(e => e.Id == id);
+            return _context.Usuarios.Any(e => e.Id == id);
         }
     }
 }
