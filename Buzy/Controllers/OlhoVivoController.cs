@@ -33,7 +33,7 @@ namespace Buzy.Controllers
             RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
             var content = resp.Content;
 
-            request = new RestRequest("Linha/Buscar?termosBusca=8700", Method.GET);
+            request = new RestRequest("Linha/Buscar?termosBusca=8000", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
@@ -54,11 +54,11 @@ namespace Buzy.Controllers
             RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
             var content = resp.Content;
 
-            var termoBusca = linhasViewModel.termoBusca;
+            var termosBusca = linhasViewModel.termosBusca;
 
-            termoBusca = string.Join("+", termoBusca.ToString());
+            termosBusca = string.Join("+", termosBusca.ToString());
 
-            request = new RestRequest($"Linha/Buscar?termosBusca={termoBusca}", Method.GET);
+            request = new RestRequest($"Linha/Buscar?termosBusca={termosBusca}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
@@ -82,7 +82,7 @@ namespace Buzy.Controllers
 
             var busca = viewModel.buscaParada;
 
-            request = new RestRequest($"Parada/Buscar?termosBusca={busca}", Method.GET);
+            request = new RestRequest("Parada/Buscar?termosBusca={" + busca + "}", Method.GET);
             response = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = response.Content;
 
@@ -138,34 +138,34 @@ namespace Buzy.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult ConsultaApi([FromBody]BuscaLinhasViewModel linhasViewModel, [FromBody]LocalizacaoViewModel localizacaoViewModel)
-        {
-            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
-            {
-                CookieContainer = new CookieContainer()
-            };
+        //[HttpPost]
+        //public IActionResult ConsultaApi([FromBody]BuscaLinhasViewModel linhasViewModel, [FromBody]LocalizacaoViewModel localizacaoViewModel)
+        //{
+        //    RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+        //    {
+        //        CookieContainer = new CookieContainer()
+        //    };
 
-            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
-            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
-            var content = resp.Content;
+        //    RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+        //    RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+        //    var content = resp.Content;
 
-            // Recebe o valor localizacaoViewModel
-            var origem = localizacaoViewModel.localizacao;
-            var destino = localizacaoViewModel.destino;
+        //    // Recebe o valor localizacaoViewModel
+        //    var origem = localizacaoViewModel.localizacao;
+        //    var destino = localizacaoViewModel.destino;
 
-            var termoBusca = linhasViewModel.termoBusca;
+        //    var termoBusca = linhasViewModel.termosBusca;
 
-            termoBusca = string.Join("+", termoBusca.ToString());
+        //    termoBusca = string.Join("+", termoBusca.ToString());
 
-            request = new RestRequest($"Linha/Buscar?termosBusca={termoBusca}", Method.GET);
-            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
-            content = resp.Content;
+        //    request = new RestRequest($"Linha/Buscar?termosBusca={termoBusca}", Method.GET);
+        //    resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+        //    content = resp.Content;
 
-            var result = JsonConvert.DeserializeObject(content);
+        //    var result = JsonConvert.DeserializeObject(content);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
 
 
