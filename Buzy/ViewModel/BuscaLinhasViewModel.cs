@@ -2,6 +2,6 @@
 {
     public class BuscaLinhasViewModel
     {
-        public string termoBusca { get; set; }
+        public string termosBusca { get; set; }
     }
 }
