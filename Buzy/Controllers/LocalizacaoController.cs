@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Buzy.DataAccess;
+﻿using Buzy.DataAccess;
 using dotnet.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Net;
 
 namespace Buzy.Controllers
 {
@@ -22,7 +18,7 @@ namespace Buzy.Controllers
             this._db = db;
         }
 
-        [HttpGet("distancia")]
+        [HttpPost("distancia")]
         public IActionResult Distancia([FromBody]LocalizacaoViewModel model)
         {
             WebClient con = new WebClient();
@@ -32,7 +28,10 @@ namespace Buzy.Controllers
             origem = string.Join("+", origem.ToString());
             destino = string.Join("+", destino.ToString());
 
-            var url = con.DownloadString($"https://maps.googleapis.com/maps/api/directions/json?units=metric&origin={origem}&destination={destino}&mode=bicycling&language=pt-BR&key=AIzaSyCXPixQua9NpsjwLDnhBnhe3qv-yzlv4z4");
+            string.Format(Uri.EscapeDataString(origem), Uri.EscapeDataString(destino));
+
+            var url = con.DownloadString($"https://maps.googleapis.com/maps/api/directions/json?mode=transit&transit_mode=bus&origin={origem}&destination={destino}&mode=driving&language=pt-BR&key=AIzaSyCXPixQua9NpsjwLDnhBnhe3qv-yzlv4z4");
+
 
             var result = JsonConvert.DeserializeObject(url);
 

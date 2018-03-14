@@ -33,9 +33,9 @@ namespace Buzy.Controllers
         {
             var veiculo = this._db.Veiculo.Single(v => v.Id == id);
             var historico = this._db.HistoricoSensores
-                                .Include(h => h.sensor)
-                                .ThenInclude(s => s.veiculo)
-                                .Where(h => h.sensor.veiculo.Id == id);
+                                .Include(h => h.sensor);
+                                //.ThenInclude(s => s.veiculo)
+                                //.Where(h => h.sensor.veiculo.Id == id);
             var entradas = historico.Where(h => h.sensor.acao == AcaoSensor.Entrada).Count();
             var saidas = historico.Where(h => h.sensor.acao == AcaoSensor.Saida).Count();
             var total = entradas - saidas;

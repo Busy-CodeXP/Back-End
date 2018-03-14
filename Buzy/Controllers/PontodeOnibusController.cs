@@ -24,22 +24,21 @@ namespace Buzy.Controllers
         {
             var calcDistanciaPonto = new CalcDistanciaPontoViewModel();
 
-            var latVeiculo = this._db.Sensores.Single(x => x.veiculo.Id == veiculoId).latitude;
-            var longVeiculo = this._db.Sensores.Single(x => x.veiculo.Id == veiculoId).longitude;
+            
 
             var latPonto = this._db.PontosDeOnibus.Single(x => x.Id == pontoId).latitude;
             var longPonto = this._db.PontosDeOnibus.Single(x => x.Id == pontoId).longitude;
 
 
-            var z1 = (latVeiculo - longVeiculo);
+            //var z1 = (latVeiculo - longVeiculo);
             var z2 = (latPonto - longPonto);
 
-            z1 = Math.Pow(z1, 2);
+            //z1 = Math.Pow(z1, 2);
             z2 = Math.Pow(z2, 2);
 
-            var soma = z1 + z2;
+            //var soma = z1 + z2;
 
-            calcDistanciaPonto.distancia = Math.Sqrt(soma);
+            //calcDistanciaPonto.distancia = Math.Sqrt(soma);
 
             calcDistanciaPonto.nome = this._db.PontosDeOnibus.Single(x => x.Id == pontoId).nome;
 

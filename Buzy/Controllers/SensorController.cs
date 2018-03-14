@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Buzy.DataAccess;
 using Buzy.DataAccess.Model;
+using Buzy.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,13 +23,13 @@ namespace Buzy.Controllers
         [HttpGet]
         public IEnumerable<Sensor> Get()
         {
-            return this._db.Sensores.Include(s => s.veiculo).ToList();
+            return this._db.Sensores.Include(s => s.Id).ToList();
         }
 
         [HttpGet("{id}")]
         public Sensor Get(int id)
         {
-            return this._db.Sensores.Include(s => s.veiculo).Single(v => v.Id == id);
+            return this._db.Sensores.Include(s => s.Id).Single(v => v.Id == id);
         }
 
         [HttpGet("{id}/historico")]
@@ -42,9 +43,8 @@ namespace Buzy.Controllers
         {
             var sensor = new Sensor();
             sensor.acao = model.acao;
-            sensor.tipo = model.tipo;
-            sensor.valor = model.valor;
-            sensor.veiculo = this._db.Veiculo.Single(s => s.Id == model.veiculoId);
+           
+            //sensor.veiculo = this._db.Veiculo.Single(s => s.Id == model.veiculoId);
 
             this._db.Sensores.Add(sensor);
             this._db.SaveChanges();
@@ -57,9 +57,7 @@ namespace Buzy.Controllers
         {
             var sensor = this._db.Sensores.Single(s => s.Id == id);
             sensor.valor = model.valor;
-            sensor.latitude = model.latitude;
-            sensor.longitude = model.longitude;
-
+          
             this._db.Sensores.Update(sensor);
             this._db.SaveChanges();
 
@@ -81,8 +79,28 @@ namespace Buzy.Controllers
         {
             var sensor = this._db.Sensores.Single(s => s.Id == id);
             sensor.acao = model.acao;
-            sensor.tipo = model.tipo;
-            sensor.valor = model.valor;
+           
+            this._db.Sensores.Update(sensor);
+            this._db.SaveChanges();
+        }
+
+        [HttpPut("{id}/entrada_saida")]
+        public void PutEntradaSaida(int id, [FromBody] SensorViewModel model)
+        {
+            var sensor = this._db.Sensores.Single(s => s.Id == id);
+            sensor.acao = model.acao;
+
+            this._db.Sensores.Update(sensor);
+            this._db.SaveChanges();
+        }
+
+        [HttpPut("{id}/total")]
+        public void PutTotal(int id, [FromBody] SensorTotalViewModel valor)
+        {
+            var sensor = this._db.Sensores.Single(s => s.Id == id);
+           
+            //fazer validação para saber se esta batendo o total com a saida e a entrada se o historico ta batendo e caso não criar mais linhas dentro
+            sensor.valor = valor.total;
 
             this._db.Sensores.Update(sensor);
             this._db.SaveChanges();
