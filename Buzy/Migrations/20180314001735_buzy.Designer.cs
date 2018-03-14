@@ -12,8 +12,8 @@ using System;
 namespace Buzy.Migrations
 {
     [DbContext(typeof(BusHelperContext))]
-    [Migration("20180301225332_InitialDBMigration")]
-    partial class InitialDBMigration
+    [Migration("20180314001735_buzy")]
+    partial class buzy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,19 +81,9 @@ namespace Buzy.Migrations
 
                     b.Property<int>("acao");
 
-                    b.Property<double>("latitude");
-
-                    b.Property<double>("longitude");
-
-                    b.Property<int>("tipo");
-
                     b.Property<int>("valor");
 
-                    b.Property<int?>("veiculoId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("veiculoId");
 
                     b.ToTable("sensores");
                 });
@@ -131,13 +121,6 @@ namespace Buzy.Migrations
                     b.HasOne("Buzy.DataAccess.Model.Sensor", "sensor")
                         .WithMany()
                         .HasForeignKey("sensorId");
-                });
-
-            modelBuilder.Entity("Buzy.DataAccess.Model.Sensor", b =>
-                {
-                    b.HasOne("Buzy.DataAccess.Model.Veiculo", "veiculo")
-                        .WithMany()
-                        .HasForeignKey("veiculoId");
                 });
 #pragma warning restore 612, 618
         }

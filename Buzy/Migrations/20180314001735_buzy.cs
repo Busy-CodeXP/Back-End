@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Buzy.Migrations
 {
-    public partial class AddMigrationBus : Migration
+    public partial class buzy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,6 +39,20 @@ namespace Buzy.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "sensores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    acao = table.Column<int>(nullable: false),
+                    valor = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_sensores", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "usuarios",
                 columns: table => new
                 {
@@ -64,30 +78,6 @@ namespace Buzy.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_veiculos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "sensores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    acao = table.Column<int>(nullable: false),
-                    latitude = table.Column<double>(nullable: false),
-                    longitude = table.Column<double>(nullable: false),
-                    tipo = table.Column<int>(nullable: false),
-                    valor = table.Column<int>(nullable: false),
-                    veiculoId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_sensores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_sensores_veiculos_veiculoId",
-                        column: x => x.veiculoId,
-                        principalTable: "veiculos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,11 +107,6 @@ namespace Buzy.Migrations
                 name: "IX_historicoSensores_sensorId",
                 table: "historicoSensores",
                 column: "sensorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_sensores_veiculoId",
-                table: "sensores",
-                column: "veiculoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -139,10 +124,10 @@ namespace Buzy.Migrations
                 name: "usuarios");
 
             migrationBuilder.DropTable(
-                name: "sensores");
+                name: "veiculos");
 
             migrationBuilder.DropTable(
-                name: "veiculos");
+                name: "sensores");
         }
     }
 }

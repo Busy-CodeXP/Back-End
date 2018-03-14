@@ -80,19 +80,9 @@ namespace Buzy.Migrations
 
                     b.Property<int>("acao");
 
-                    b.Property<double>("latitude");
-
-                    b.Property<double>("longitude");
-
-                    b.Property<int>("tipo");
-
                     b.Property<int>("valor");
 
-                    b.Property<int?>("veiculoId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("veiculoId");
 
                     b.ToTable("sensores");
                 });
@@ -130,13 +120,6 @@ namespace Buzy.Migrations
                     b.HasOne("Buzy.DataAccess.Model.Sensor", "sensor")
                         .WithMany()
                         .HasForeignKey("sensorId");
-                });
-
-            modelBuilder.Entity("Buzy.DataAccess.Model.Sensor", b =>
-                {
-                    b.HasOne("Buzy.DataAccess.Model.Veiculo", "veiculo")
-                        .WithMany()
-                        .HasForeignKey("veiculoId");
                 });
 #pragma warning restore 612, 618
         }
