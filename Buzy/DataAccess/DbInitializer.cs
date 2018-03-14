@@ -16,7 +16,7 @@ namespace Buzy.DataAccess
             if (db.Veiculo.Any()) return;
             var veiculo = new Veiculo()
             {
-                
+
                 nome = "Informática"
             };
             db.Veiculo.Add(veiculo);
@@ -24,7 +24,7 @@ namespace Buzy.DataAccess
             if (db.Usuarios.Any()) return;
             var usuario = new Usuario()
             {
-                
+
                 nome = "Danielz",
             };
             db.Usuarios.Add(usuario);
@@ -32,7 +32,7 @@ namespace Buzy.DataAccess
             if (db.PontosDeOnibus.Any()) return;
             var ptDeOnibus = new PontoDeOnibus()
             {
-                
+
                 latitude = 123,
                 longitude = 321,
                 nome = "Augusta"
@@ -43,10 +43,7 @@ namespace Buzy.DataAccess
             if (db.Sensores.Any()) return;
             var sensores = new Sensor()
             {
-                
                 valor = 1223,
-                veiculo = veiculo,
-                tipo = TipoSensor.Ldr,
                 acao = AcaoSensor.Saida
             };
             db.Sensores.Add(sensores);
@@ -62,7 +59,6 @@ namespace Buzy.DataAccess
             if (db.Feedbacks.Any()) return;
             var feedback = new Feedback()
             {
-               Id = 1,
                 assunto = Assunto.Sugestoes,
                 mensagem = "Mudar o Motorista"
             };
