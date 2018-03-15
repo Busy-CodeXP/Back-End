@@ -33,6 +33,8 @@ namespace Buzy
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
+            services.AddCors();
+
             services.AddMvc();
         }
 
@@ -43,6 +45,9 @@ namespace Buzy
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+                builder.WithOrigins("*").WithMethods("*").AllowAnyHeader());
 
             //app.UseSwagger();
             //app.UseSwaggerUI(c => {
