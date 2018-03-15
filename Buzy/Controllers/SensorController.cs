@@ -43,8 +43,7 @@ namespace Buzy.Controllers
         {
             var sensor = new Sensor();
             sensor.acao = model.acao;
-           
-            //sensor.veiculo = this._db.Veiculo.Single(s => s.Id == model.veiculoId);
+               
 
             this._db.Sensores.Add(sensor);
             this._db.SaveChanges();
