@@ -59,10 +59,26 @@ namespace Buzy.Controllers
             request = new RestRequest($"Linha/Buscar?termosBusca={termosBusca}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
-
+                
             var result = JsonConvert.DeserializeObject(content);
 
             return Ok(result);
+        }
+        [HttpGet("buscaLinhaSentido")]
+        public IActionResult buscaLinhaSentido(string buscaLinha, byte sentido)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
+
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            var termosBusca = buscaLinha;
+
+            return null;
         }
 
         // API OLHO VIVO
@@ -90,7 +106,31 @@ namespace Buzy.Controllers
             return Ok(result);
         }
 
+        //Posicao
         [HttpGet("Posicao")]
+        public IActionResult PosicaoLinha(string codigoLinha)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
+
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            var codLinha = codigoLinha;
+
+            request = new RestRequest($"Posicao", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+
+            var result = JsonConvert.DeserializeObject(content);
+
+            return Ok(result);
+        }
+
+        [HttpGet("PosicaoLinha")]
         public IActionResult Posicao(string codigoLinha)
         {
             RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
@@ -113,8 +153,33 @@ namespace Buzy.Controllers
             return Ok(result);
         }
 
+        //Previsao
         [HttpGet("Previsao")]
-        public IActionResult Previsao(string codigoLinha)
+        public IActionResult Previsao(string codigoLinha, string codigoParada)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
+
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            var codLinha = codigoLinha;
+            var codParada = codigoParada;
+
+            request = new RestRequest($"Previsao/Linha?codigoParada={codParada}&codigoLinha={codLinha}", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+
+            var result = JsonConvert.DeserializeObject(content);
+
+            return Ok(result);
+        }
+
+        [HttpGet("PrevisaoLinha")]
+        public IActionResult PrevisaoLinha(string codigoLinha)
         {
             RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
             {
@@ -136,8 +201,31 @@ namespace Buzy.Controllers
             return Ok(result);
         }
 
+        [HttpGet("PrevisaoParada")]
+        public IActionResult PrevisaoParada(string codigoParada)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
 
-       
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            var codParada = codigoParada;
+
+            request = new RestRequest($"Previsao/Linha?codigoParada={codParada}", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+
+            var result = JsonConvert.DeserializeObject(content);
+
+            return Ok(result);
+        }
+
+
+
 
 
 
