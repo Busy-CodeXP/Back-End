@@ -27,19 +27,19 @@ namespace Buzy.Controllers
             configuration = _configuration;
         }
 
-        
+        [AllowAnonymous]
         [HttpPost]
-        public IActionResult RequestToken([FromBody] TokenRequest request, Usuario usuario)
+        public IActionResult RequestToken([FromBody] TokenRequest request)
         {
-            Usuario user = db.Usuarios
-                    .FirstOrDefault(c => c.email == usuario.email && c.senha == usuario.senha);
+            Usuario user = db.Usuarios.Where(c => c.email == request.email && c.senha == request.password)
+                    .FirstOrDefault();
 
-            if (request.email == usuario.email && request.password == usuario.email)
+            if (user != null)
             {
                 var claims = new[]
                 {
-            new Claim(ClaimTypes.Name, request.email)
-            };
+                    new Claim(ClaimTypes.Name, request.email)
+                };
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["SecurityKey"]));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
