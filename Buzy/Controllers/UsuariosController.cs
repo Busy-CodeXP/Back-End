@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Buzy.DataAccess;
 using Buzy.DataAccess.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Buzy.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Usuarios")]
     public class UsuariosController : Controller

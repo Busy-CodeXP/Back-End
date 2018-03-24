@@ -73,16 +73,6 @@ namespace Buzy.Controllers
             return historicoSensor;
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] SensorViewModel model)
-        {
-            var sensor = this._db.Sensores.Single(s => s.Id == id);
-            sensor.acao = model.acao;
-           
-            this._db.Sensores.Update(sensor);
-            this._db.SaveChanges();
-        }
-
         [HttpPut("{id}/entrada_saida")]
         public void PutEntradaSaida(int id, [FromBody] SensorViewModel model)
         {

@@ -12,7 +12,7 @@ using System;
 namespace Buzy.Migrations
 {
     [DbContext(typeof(BusHelperContext))]
-    [Migration("20180314001735_buzy")]
+    [Migration("20180322215258_buzy")]
     partial class buzy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,13 @@ namespace Buzy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("email");
+
                     b.Property<string>("nome");
+
+                    b.Property<string>("senha");
+
+                    b.Property<string>("telefone");
 
                     b.HasKey("Id");
 

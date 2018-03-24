@@ -92,7 +92,13 @@ namespace Buzy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("email");
+
                     b.Property<string>("nome");
+
+                    b.Property<string>("senha");
+
+                    b.Property<string>("telefone");
 
                     b.HasKey("Id");
 

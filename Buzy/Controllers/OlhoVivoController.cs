@@ -65,7 +65,7 @@ namespace Buzy.Controllers
             return Ok(result);
         }
         [HttpGet("buscaLinhaSentido")]
-        public IActionResult buscaLinhaSentido(string buscaLinha, byte sentido)
+        public IActionResult buscaLinhaSentido(string buscaLinha, byte sentidos)
         {
             RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
             {
@@ -77,8 +77,15 @@ namespace Buzy.Controllers
             var content = resp.Content;
 
             var termosBusca = buscaLinha;
+            var sentido = sentidos; 
 
-            return null;
+            request = new RestRequest($"Linha/BuscarLinhaSentido?termosBusca={termosBusca}&sentido={sentido}", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+
+            var result = JsonConvert.DeserializeObject(content);
+
+            return Ok(result);
         }
 
         // API OLHO VIVO
@@ -131,7 +138,7 @@ namespace Buzy.Controllers
         }
 
         [HttpGet("PosicaoLinha")]
-        public IActionResult Posicao(string codigoLinha)
+        public IActionResult Posicao(int codigoLinha)
         {
             RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
             {
@@ -153,9 +160,8 @@ namespace Buzy.Controllers
             return Ok(result);
         }
 
-        //Previsao
-        [HttpGet("Previsao")]
-        public IActionResult Previsao(string codigoLinha, string codigoParada)
+        [HttpGet("PosicaoGaragem")]
+        public IActionResult PosicaoGaragem(int codigoGaragem, int codigoLinha)
         {
             RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
             {
@@ -167,9 +173,34 @@ namespace Buzy.Controllers
             var content = resp.Content;
 
             var codLinha = codigoLinha;
-            var codParada = codigoParada;
+            var codGaragem = codigoGaragem;
 
-            request = new RestRequest($"Previsao/Linha?codigoParada={codParada}&codigoLinha={codLinha}", Method.GET);
+            request = new RestRequest($"Posicao/Garagem?codigoGaragem={codGaragem}[&codigoLinha={codLinha}]", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+
+            var result = JsonConvert.DeserializeObject(content);
+
+            return Ok(result);
+        }
+
+        //Previsao
+        [HttpGet("Previsao")]
+        public IActionResult Previsao(string codigoParada, string codigoLinha)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
+
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            var codParada = codigoParada;
+            var codLinha = codigoLinha;
+
+            request = new RestRequest($"Previsao?codigoParada={codParada}&codigoLinha={codLinha}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
@@ -215,7 +246,7 @@ namespace Buzy.Controllers
 
             var codParada = codigoParada;
 
-            request = new RestRequest($"Previsao/Linha?codigoParada={codParada}", Method.GET);
+            request = new RestRequest($"Previsao/Parada?codigoParada={codParada}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
@@ -223,11 +254,5 @@ namespace Buzy.Controllers
 
             return Ok(result);
         }
-
-
-
-
-
-
     }
 }

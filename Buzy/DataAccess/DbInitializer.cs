@@ -26,6 +26,9 @@ namespace Buzy.DataAccess
             {
 
                 nome = "Danielz",
+                email = "clemente2099@gmail.com",
+                senha = "12345",
+                telefone = "11 943243499"
             };
             db.Usuarios.Add(usuario);
 
