@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Buzy.DataAccess;
 using Buzy.ViewModel;
@@ -64,6 +65,7 @@ namespace Buzy.Controllers
 
             return Ok(result);
         }
+
         [HttpGet("buscaLinhaSentido")]
         public IActionResult buscaLinhaSentido(string buscaLinha, byte sentidos)
         {
@@ -254,5 +256,51 @@ namespace Buzy.Controllers
 
             return Ok(result);
         }
+
+        //Posicao
+        [HttpGet("BuscaOnibus")]
+        public IActionResult BuscaOnibus(string codigoLinha)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
+
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            request = new RestRequest($"Posicao/Linha?codigoLinha={codigoLinha}", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+            
+            
+
+            var result = JsonConvert.DeserializeObject(content);
+
+            return Ok(result);
+        }
+
+        [HttpGet("ValidaSensor")]
+        public IActionResult ValidaSensor(string codigoLinha)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
+
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            request = new RestRequest($"Linha/Buscar?termosBusca={codigoLinha}", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+
+            var result = JsonConvert.DeserializeObject(content);
+
+            return Ok(result);
+        }
+
     }
 }
