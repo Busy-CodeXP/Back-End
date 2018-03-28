@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Buzy.DataAccess;
@@ -6,6 +7,7 @@ using Buzy.ViewModel;
 using dotnet.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace Buzy.Controllers
@@ -289,17 +291,35 @@ namespace Buzy.Controllers
                 CookieContainer = new CookieContainer()
             };
 
+
             RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
             RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
             var content = resp.Content;
 
-            request = new RestRequest($"Linha/Buscar?termosBusca={codigoLinha}", Method.GET);
+            request = new RestRequest($"/Posicao/Linha?codigoLinha={codigoLinha}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
-            var result = JsonConvert.DeserializeObject(content);
 
-            return Ok(result);
+            dynamic result = JsonConvert.DeserializeObject(content);
+
+
+            dynamic obj = "";
+
+            List<dynamic> values = new List<dynamic>();
+
+            foreach (var linha in result)
+            {
+                foreach(var resultado in linha)
+                {
+                    obj = resultado;
+                    values.Add(obj);
+                }
+            }
+
+            
+
+            return Ok(values);
         }
 
     }
