@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Buzy.Migrations
 {
-    public partial class buzy : Migration
+    public partial class Buzy : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,7 @@ namespace Buzy.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CodigoLinha = table.Column<string>(nullable: true),
                     acao = table.Column<int>(nullable: false),
                     valor = table.Column<int>(nullable: false)
                 },

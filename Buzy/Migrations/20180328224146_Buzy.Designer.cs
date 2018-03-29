@@ -12,8 +12,8 @@ using System;
 namespace Buzy.Migrations
 {
     [DbContext(typeof(BusHelperContext))]
-    [Migration("20180322215258_buzy")]
-    partial class buzy
+    [Migration("20180328224146_Buzy")]
+    partial class Buzy
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,8 @@ namespace Buzy.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CodigoLinha");
 
                     b.Property<int>("acao");
 
