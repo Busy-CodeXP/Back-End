@@ -44,20 +44,21 @@ namespace Buzy.DataAccess
 
 
             if (db.Sensores.Any()) return;
-            var sensores = new Sensor()
+            var sensores = new Sensor[]
             {
-                valor = 1223,
-                acao = AcaoSensor.Saida
-            };
-            db.Sensores.Add(sensores);
+                new Sensor {valor = 100, acao = AcaoSensor.Saida, CodigoLinha = "8000"},
+                new Sensor {valor = 123, acao = AcaoSensor.Entrada, CodigoLinha = "8000"},
 
-            if (db.HistoricoSensores.Any()) return;
-            var histSensores = new HistoricoSensor()
-            {
-                data = new DateTime(2018, 01, 02),
-                sensor = sensores
             };
-            db.HistoricoSensores.Add(histSensores);
+            db.Sensores.AddRange(sensores);
+           
+            if (db.HistoricoSensores.Any()) return;
+            var histSensores = new HistoricoSensor[]
+            {
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]}
+            };
+            db.HistoricoSensores.AddRange(histSensores);
 
             if (db.Feedbacks.Any()) return;
             var feedback = new Feedback()
