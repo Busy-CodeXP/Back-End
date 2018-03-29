@@ -306,8 +306,6 @@ namespace Buzy.Controllers
 
             dynamic arrJson = JsonConvert.DeserializeObject(content);
 
-            List<dynamic> list = new List<dynamic>();
-
             JObject busInfo = JObject.Parse(content);
 
             IList<JToken> results = busInfo["vs"].Children().ToList();
