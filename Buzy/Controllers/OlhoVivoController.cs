@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using Buzy.DataAccess;
+using Buzy.DataAccess.Model;
 using Buzy.ViewModel;
 using dotnet.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -300,26 +304,25 @@ namespace Buzy.Controllers
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
+            dynamic arrJson = JsonConvert.DeserializeObject(content);
 
-            dynamic result = JsonConvert.DeserializeObject(content);
+            List<dynamic> list = new List<dynamic>();
 
+            JObject busInfo = JObject.Parse(content);
 
-            dynamic obj = "";
+            IList<JToken> results = busInfo["vs"].Children().ToList();
 
-            List<dynamic> values = new List<dynamic>();
+            IList<VeiculoAPI> busInfoModel = new List<VeiculoAPI>();
 
-            foreach (var linha in result)
+            foreach (JToken result in results)
             {
-                foreach(var resultado in linha)
-                {
-                    obj = resultado;
-                    values.Add(obj);
-                }
+                // JToken.ToObject is a helper method that uses JsonSerializer internally
+                VeiculoAPI values = result.ToObject<VeiculoAPI>();
+                busInfoModel.Add(values);
             }
 
-            
 
-            return Ok(values);
+            return Ok(busInfoModel);
         }
 
     }

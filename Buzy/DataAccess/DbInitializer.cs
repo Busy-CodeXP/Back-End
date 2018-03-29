@@ -59,14 +59,6 @@ namespace Buzy.DataAccess
             };
             db.HistoricoSensores.Add(histSensores);
 
-            if (db.Feedbacks.Any()) return;
-            var feedback = new Feedback()
-            {
-                assunto = Assunto.Sugestoes,
-                mensagem = "Mudar o Motorista"
-            };
-            db.Feedbacks.Add(feedback);
-
             db.SaveChanges();
         }
 
@@ -81,8 +73,6 @@ namespace Buzy.DataAccess
             if (db.Sensores.Any()) db.Sensores.RemoveRange(db.Sensores.ToList());
 
             if (db.HistoricoSensores.Any()) db.HistoricoSensores.RemoveRange(db.HistoricoSensores.ToList());
-
-            if (db.Feedbacks.Any()) db.Feedbacks.RemoveRange(db.Feedbacks.ToList());
 
             db.SaveChanges();
         }

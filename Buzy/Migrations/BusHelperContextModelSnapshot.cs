@@ -21,20 +21,6 @@ namespace Buzy.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Buzy.DataAccess.Model.Feedback", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("assunto");
-
-                    b.Property<string>("mensagem");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("feedbacks");
-                });
-
             modelBuilder.Entity("Buzy.DataAccess.Model.HistoricoSensor", b =>
                 {
                     b.Property<int>("Id")
@@ -78,11 +64,15 @@ namespace Buzy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("VeiculoIdId");
+
                     b.Property<int>("acao");
 
                     b.Property<int>("valor");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("VeiculoIdId");
 
                     b.ToTable("sensores");
                 });
@@ -116,6 +106,8 @@ namespace Buzy.Migrations
 
                     b.Property<string>("nome");
 
+                    b.Property<bool>("sensorAtivo");
+
                     b.HasKey("Id");
 
                     b.ToTable("veiculos");
@@ -126,6 +118,13 @@ namespace Buzy.Migrations
                     b.HasOne("Buzy.DataAccess.Model.Sensor", "sensor")
                         .WithMany()
                         .HasForeignKey("sensorId");
+                });
+
+            modelBuilder.Entity("Buzy.DataAccess.Model.Sensor", b =>
+                {
+                    b.HasOne("Buzy.DataAccess.Model.Veiculo", "VeiculoId")
+                        .WithMany()
+                        .HasForeignKey("VeiculoIdId");
                 });
 #pragma warning restore 612, 618
         }
