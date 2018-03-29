@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Buzy.DataAccess;
+using Buzy.DataAccess.Model;
 using Buzy.ViewModel;
 using dotnet.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -57,6 +60,9 @@ namespace Buzy.Controllers
             var termosBusca = buscaLinha;
 
             request = new RestRequest($"Linha/Buscar?termosBusca={termosBusca}", Method.GET);
+
+            
+
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
                 
@@ -64,6 +70,59 @@ namespace Buzy.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("buscaLinhaSensor")]
+        public IActionResult buscaLinhaSensor(string buscaLinha, Sensor codigoLinha)
+        {
+            RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
+            {
+                CookieContainer = new CookieContainer()
+            };
+
+            RestRequest request = new RestRequest("Login/Autenticar?token=6f76933e898283a0bbf03b5aa3ee0a4e22f7b8dcb47abfeef4cd9f4300690a92", Method.POST);
+            RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
+            var content = resp.Content;
+
+            var termosBusca = buscaLinha;
+
+
+            request = new RestRequest($"Linha/Buscar?termosBusca={termosBusca}", Method.GET);
+            resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
+            content = resp.Content;
+
+            var result = JsonConvert.DeserializeObject<List<BuscaLinhaResult>>(content);
+
+            var letreiros = result.Select(r => r.letreiro1).ToArray();
+
+            if (!_db.Sensores.Any(s => s.CodigoLinha == buscaLinha)) throw new System.Exception();
+
+            var historico = this._db.HistoricoSensores
+                                .Where(hs => letreiros.Contains(hs.sensor.CodigoLinha))
+                                .Include(h => h.sensor).ToList();
+
+            foreach(var item in result)
+            {
+                var hists = historico.Where(h => h.sensor.CodigoLinha == item.letreiro1).ToList();
+
+                var entradas = hists.Where(h => h.sensor.acao == AcaoSensor.Entrada).Count();
+                var saidas = hists.Where(h => h.sensor.acao == AcaoSensor.Saida).Count();
+                var total = entradas - saidas;
+                var capacidade = 160;
+                var lotacao = 0;
+
+                if (total > 0)
+                {
+                    lotacao = (total * 100) / capacidade;
+                }
+
+                item.capacidade = 160;
+                item.lotacao = string.Format("{0:N2}%", lotacao);
+            }
+            
+            return Ok(result);
+        }
+
+
         [HttpGet("buscaLinhaSentido")]
         public IActionResult buscaLinhaSentido(string buscaLinha, byte sentidos)
         {
@@ -255,4 +314,5 @@ namespace Buzy.Controllers
             return Ok(result);
         }
     }
+
 }
