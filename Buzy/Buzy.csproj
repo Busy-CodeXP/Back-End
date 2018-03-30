@@ -17,6 +17,10 @@
     <Compile Remove="Migrations\20180314001735_buzy.Designer.cs" />
     <Compile Remove="Migrations\20180322215258_buzy.cs" />
     <Compile Remove="Migrations\20180322215258_buzy.Designer.cs" />
+    <Compile Remove="Migrations\20180328224146_Buzy.cs" />
+    <Compile Remove="Migrations\20180328224146_Buzy.Designer.cs" />
+    <Compile Remove="Migrations\20180329222850_Buzy.cs" />
+    <Compile Remove="Migrations\20180329222850_Buzy.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -78,9 +78,11 @@ namespace Buzy.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CodigoLinha");
-
                     b.Property<int>("acao");
+
+                    b.Property<int>("codigoLinha");
+
+                    b.Property<int>("prefixo");
 
                     b.Property<int>("valor");
 

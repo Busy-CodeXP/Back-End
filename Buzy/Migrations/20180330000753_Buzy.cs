@@ -44,8 +44,9 @@ namespace Buzy.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CodigoLinha = table.Column<string>(nullable: true),
                     acao = table.Column<int>(nullable: false),
+                    codigoLinha = table.Column<int>(nullable: false),
+                    prefixo = table.Column<int>(nullable: false),
                     valor = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

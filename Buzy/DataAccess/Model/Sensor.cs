@@ -9,7 +9,8 @@
         public int Id { get; set; }
         public int valor { get; set; }
         public AcaoSensor acao { get; set; }
-        public string CodigoLinha { get; set; }
-        
+        public int prefixo { get; set; }
+        public int codigoLinha { get; set; }
+
     }
 }

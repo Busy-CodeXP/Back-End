@@ -39,12 +39,12 @@ namespace Buzy.Controllers
             var entradas = historico.Where(h => h.sensor.acao == AcaoSensor.Entrada).Count();
             var saidas = historico.Where(h => h.sensor.acao == AcaoSensor.Saida).Count();
             var total = entradas - saidas;
-            var capacidade = veiculo.capacidadeSentados + veiculo.capacisadeEmPe;
+            var capacidade = 169;
             var lotacao = 0;
 
             if (total > 0)
             {
-                lotacao = (total * 100) / capacidade;
+                lotacao = (capacidade / 100) * total;
             }
 
             var detalhes = new ResumoVeiculoViewModel();

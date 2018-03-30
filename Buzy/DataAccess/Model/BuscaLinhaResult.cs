@@ -9,31 +9,37 @@ namespace Buzy.DataAccess.Model
     [DataContract]
     public class BuscaLinhaResult
     {
-        [DataMember(Name = "cl")]
-        public string codigoLinha { get; set; }
+        [DataMember(Name = "vs")]
+        public List<VeiculoResult> vs{ get; set; }
 
-        [DataMember(Name = "lc")]
-        public bool isCircular { get; set; }
+        [DataMember(Name = "hr")]
+        public string hr { get; set; }
 
-        [DataMember(Name = "lt")]
-        public string letreiro1 { get; set; }
+    }
 
-        [DataMember(Name = "sl")]
-        public int sentido { get; set; }
+    [DataContract]
+    public class VeiculoResult
+    {
+        [DataMember(Name = "p")]
+        public int prefixo { get; set; }
 
-        [DataMember(Name = "tl")]
-        public int letreiro2 { get; set; }
+        [DataMember(Name = "a")]
+        public bool acessibilidade { get; set; }
 
-        [DataMember(Name = "tp")]
-        public string terminalPrincipal { get; set; }
+        [DataMember(Name = "ta")]
+        public string horarioDados { get; set; }
 
-        [DataMember(Name = "ts")]
-        public string terminalSecundario { get; set; }
+        [DataMember(Name = "py")]
+        public double latitude { get; set; }
+
+        [DataMember(Name = "px")]
+        public double longitude { get; set; }
 
         [DataMember(Name = "capacidade")]
         public int capacidade { get; set; }
 
         [DataMember(Name = "lotacao")]
         public string lotacao { get; set; }
-    }
+    
+}
 }

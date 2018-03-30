@@ -46,15 +46,46 @@ namespace Buzy.DataAccess
             if (db.Sensores.Any()) return;
             var sensores = new Sensor[]
             {
-                new Sensor {valor = 100, acao = AcaoSensor.Saida, CodigoLinha = "8000"},
-                new Sensor {valor = 123, acao = AcaoSensor.Entrada, CodigoLinha = "8000"},
-
+                new Sensor {valor = 123, acao = AcaoSensor.Entrada, prefixo = 12519, codigoLinha = 2506},
+                new Sensor {valor = 100, acao = AcaoSensor.Saida, prefixo = 12519, codigoLinha = 2506},
+                new Sensor {valor = 3, acao = AcaoSensor.Entrada, prefixo = 12231, codigoLinha = 2506}
             };
             db.Sensores.AddRange(sensores);
            
             if (db.HistoricoSensores.Any()) return;
             var histSensores = new HistoricoSensor[]
             {
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[1]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[0]}
             };

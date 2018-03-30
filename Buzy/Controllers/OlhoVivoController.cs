@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Buzy.DataAccess;
@@ -71,8 +72,8 @@ namespace Buzy.Controllers
             return Ok(result);
         }
 
-        [HttpGet("buscaLinhaSensor")]
-        public IActionResult buscaLinhaSensor(string buscaLinha, Sensor codigoLinha)
+        [HttpGet("codigoLinhaSensor")]
+        public IActionResult codigoLinhaSensor(int codigoLinha)
         {
             RestClient restClient = new RestClient("http://api.olhovivo.sptrans.com.br/v2.1")
             {
@@ -83,26 +84,27 @@ namespace Buzy.Controllers
             RestResponse resp = (RestResponse)restClient.ExecuteAsPost(request, "POST");
             var content = resp.Content;
 
-            var termosBusca = buscaLinha;
+            var codLinha = codigoLinha;
 
 
-            request = new RestRequest($"Linha/Buscar?termosBusca={termosBusca}", Method.GET);
+            request = new RestRequest($"Posicao/Linha?codigoLinha={codLinha}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
-            var result = JsonConvert.DeserializeObject<List<BuscaLinhaResult>>(content);
+            var result = JsonConvert.DeserializeObject<BuscaLinhaResult>(content);
 
-            var letreiros = result.Select(r => r.letreiro1).ToArray();
 
-            if (!_db.Sensores.Any(s => s.CodigoLinha == buscaLinha)) throw new System.Exception();
+            var prefixos = result.vs.Select(r => r.prefixo).ToArray();
+
+            if (!_db.Sensores.Any(s => s.codigoLinha == codigoLinha)) throw new System.Exception();
 
             var historico = this._db.HistoricoSensores
-                                .Where(hs => letreiros.Contains(hs.sensor.CodigoLinha))
+                                .Where(hs => prefixos.Contains(hs.sensor.prefixo))
                                 .Include(h => h.sensor).ToList();
 
-            foreach(var item in result)
+            foreach(var item in result.vs)
             {
-                var hists = historico.Where(h => h.sensor.CodigoLinha == item.letreiro1).ToList();
+                var hists = historico.Where(h => h.sensor.prefixo == item.prefixo).ToList();
 
                 var entradas = hists.Where(h => h.sensor.acao == AcaoSensor.Entrada).Count();
                 var saidas = hists.Where(h => h.sensor.acao == AcaoSensor.Saida).Count();
@@ -114,6 +116,7 @@ namespace Buzy.Controllers
                 {
                     lotacao = (total * 100) / capacidade;
                 }
+                
 
                 item.capacidade = 160;
                 item.lotacao = string.Format("{0:N2}%", lotacao);
