@@ -109,7 +109,7 @@ namespace Buzy.Controllers
                 var entradas = hists.Where(h => h.sensor.acao == AcaoSensor.Entrada).Count();
                 var saidas = hists.Where(h => h.sensor.acao == AcaoSensor.Saida).Count();
                 var total = entradas - saidas;
-                var capacidade = 160;
+                var capacidade = 47;
                 var lotacao = 0;
 
                 if (total > 0)
@@ -118,8 +118,8 @@ namespace Buzy.Controllers
                 }
                 
 
-                item.capacidade = 160;
-                item.lotacao = string.Format("{0:N2}%", lotacao);
+                item.capacidade = capacidade;
+                item.lotacao = string.Format("{0}", lotacao);
             }
             
             return Ok(result);
