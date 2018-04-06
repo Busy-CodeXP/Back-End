@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using Buzy.DataAccess;
+﻿using Buzy.DataAccess;
 using Buzy.DataAccess.Model;
-using Buzy.ViewModel;
-using dotnet.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Linq;
+using System.Net;
 
 namespace Buzy.Controllers
 {
@@ -62,11 +58,9 @@ namespace Buzy.Controllers
 
             request = new RestRequest($"Linha/Buscar?termosBusca={termosBusca}", Method.GET);
 
-            
-
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
-                
+
             var result = JsonConvert.DeserializeObject(content);
 
             return Ok(result);
@@ -86,23 +80,19 @@ namespace Buzy.Controllers
 
             var codLinha = codigoLinha;
 
-
             request = new RestRequest($"Posicao/Linha?codigoLinha={codLinha}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
             content = resp.Content;
 
             var result = JsonConvert.DeserializeObject<BuscaLinhaResult>(content);
 
-
             var prefixos = result.vs.Select(r => r.prefixo).ToArray();
-
-            if (!_db.Sensores.Any(s => s.codigoLinha == codigoLinha)) throw new System.Exception();
 
             var historico = this._db.HistoricoSensores
                                 .Where(hs => prefixos.Contains(hs.sensor.prefixo))
                                 .Include(h => h.sensor).ToList();
 
-            foreach(var item in result.vs)
+            foreach (var item in result.vs)
             {
                 var hists = historico.Where(h => h.sensor.prefixo == item.prefixo).ToList();
 
@@ -116,15 +106,13 @@ namespace Buzy.Controllers
                 {
                     lotacao = (total * 100) / capacidade;
                 }
-                
 
                 item.capacidade = capacidade;
                 item.lotacao = string.Format("{0}", lotacao);
             }
-            
+
             return Ok(result);
         }
-
 
         [HttpGet("buscaLinhaSentido")]
         public IActionResult buscaLinhaSentido(string buscaLinha, byte sentidos)
@@ -139,7 +127,7 @@ namespace Buzy.Controllers
             var content = resp.Content;
 
             var termosBusca = buscaLinha;
-            var sentido = sentidos; 
+            var sentido = sentidos;
 
             request = new RestRequest($"Linha/BuscarLinhaSentido?termosBusca={termosBusca}&sentido={sentido}", Method.GET);
             resp = (RestResponse)restClient.ExecuteAsGet(request, "GET");
@@ -317,5 +305,4 @@ namespace Buzy.Controllers
             return Ok(result);
         }
     }
-
 }
