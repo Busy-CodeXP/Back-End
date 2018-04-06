@@ -1,8 +1,6 @@
 ﻿using Buzy.DataAccess.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Buzy.DataAccess
 {
@@ -13,18 +11,9 @@ namespace Buzy.DataAccess
             db.Database.EnsureCreated();
             ClearDataBase(db);
 
-            if (db.Veiculo.Any()) return;
-            var veiculo = new Veiculo()
-            {
-
-                nome = "Informática"
-            };
-            db.Veiculo.Add(veiculo);
-
             if (db.Usuarios.Any()) return;
             var usuario = new Usuario()
             {
-
                 nome = "Danielz",
                 email = "clemente2099@gmail.com",
                 senha = "12345",
@@ -35,13 +24,11 @@ namespace Buzy.DataAccess
             if (db.PontosDeOnibus.Any()) return;
             var ptDeOnibus = new PontoDeOnibus()
             {
-
                 latitude = 123,
                 longitude = 321,
                 nome = "Augusta"
             };
             db.PontosDeOnibus.Add(ptDeOnibus);
-
 
             if (db.Sensores.Any()) return;
             var sensores = new Sensor[]
@@ -56,11 +43,11 @@ namespace Buzy.DataAccess
                 new Sensor {valor  = 0, acao = AcaoSensor.Saida, prefixo = 12548, codigoLinha = 2506},
                 new Sensor {valor  = 0, acao = AcaoSensor.Entrada, prefixo = 12519, codigoLinha = 2506},
                 new Sensor {valor  = 0, acao = AcaoSensor.Saida, prefixo = 12519, codigoLinha = 2506},
-
-
+                new Sensor {valor = 0, acao = AcaoSensor.Entrada, prefixo= 12520, codigoLinha =  35274},
+                new Sensor {valor = 0, acao = AcaoSensor.Saida, prefixo = 12520, codigoLinha = 35274},
             };
             db.Sensores.AddRange(sensores);
-           
+
             if (db.HistoricoSensores.Any()) return;
             var histSensores = new HistoricoSensor[]
             {
@@ -138,6 +125,42 @@ namespace Buzy.DataAccess
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[4]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[5]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[5]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[5]},
@@ -164,6 +187,50 @@ namespace Buzy.DataAccess
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[8]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[8]},
                 new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[8]},
+                new HistoricoSensor {data = new DateTime(2018, 01, 02), sensor = sensores[9]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[10]},
+
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[11]},
+                new HistoricoSensor {data = new DateTime(2018, 03, 02), sensor = sensores[11]}
             };
             db.HistoricoSensores.AddRange(histSensores);
 
@@ -180,8 +247,6 @@ namespace Buzy.DataAccess
 
         public static void ClearDataBase(BusHelperContext db)
         {
-            if (db.Veiculo.Any()) db.Veiculo.RemoveRange(db.Veiculo.ToList());
-
             if (db.Usuarios.Any()) db.Usuarios.RemoveRange(db.Usuarios.ToList());
 
             if (db.PontosDeOnibus.Any()) db.PontosDeOnibus.RemoveRange(db.PontosDeOnibus.ToList());
