@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Buzy.DataAccess;
+﻿using Buzy.DataAccess;
 using Buzy.DataAccess.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
 namespace Buzy.Controllers
 {
     [Route("api/login")]
     public class LoginController : Controller
     {
-
-        readonly BusHelperContext db;
-        readonly IConfiguration configuration;
+        private readonly BusHelperContext db;
+        private readonly IConfiguration configuration;
 
         public LoginController(IConfiguration _configuration, BusHelperContext db)
         {
