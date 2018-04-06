@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Buzy.DataAccess;
+﻿using Buzy.DataAccess;
 using Buzy.DataAccess.Model;
 using Buzy.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Buzy.Controllers
 {
@@ -43,7 +42,6 @@ namespace Buzy.Controllers
         {
             var sensor = new Sensor();
             sensor.acao = model.acao;
-               
 
             this._db.Sensores.Add(sensor);
             this._db.SaveChanges();
@@ -56,7 +54,7 @@ namespace Buzy.Controllers
         {
             var sensor = this._db.Sensores.Single(s => s.Id == id);
             sensor.valor = model.valor;
-          
+
             this._db.Sensores.Update(sensor);
             this._db.SaveChanges();
 
@@ -87,7 +85,7 @@ namespace Buzy.Controllers
         public void PutTotal(int id, [FromBody] SensorTotalViewModel valor)
         {
             var sensor = this._db.Sensores.Single(s => s.Id == id);
-           
+
             //fazer validação para saber se esta batendo o total com a saida e a entrada se o historico ta batendo e caso não criar mais linhas dentro
             sensor.valor = valor.total;
 
